@@ -7,8 +7,10 @@ class ApplicationController < ActionController::Base
   def force_approved_account
   	# We will redirect to the approval page if a user is signed in, is not an admin and is marked as waiting for approval
   	redirect = user_signed_in? && !current_user.is_admin? && current_user.registration_status.waiting_approval?
-
-  	redirect_to approval_path if redirect
+    if redirect
+      sign_out current_user
+      redirect_to approval_path
+    end
   end
 
   def redirect_suspended_account
@@ -17,5 +19,4 @@ class ApplicationController < ActionController::Base
   	
   	redirect_to suspended_path if redirect
   end
-
 end
