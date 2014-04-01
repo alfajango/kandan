@@ -24,6 +24,8 @@ DS_Store
 .bushido
 .rvmrc
 
+.ruby-gemset
+
 /public/assets
 
 # Ignore all logfiles and tempfiles.
