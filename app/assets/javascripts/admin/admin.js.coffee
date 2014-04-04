@@ -93,7 +93,7 @@ toggleAdminOnUser = (obj) ->
 	message = if action_taken == GRANT_ACTION
 	  "make #{full_name} an administrator?"
 	else
-	  "remove #{full_name} from the administrators?"
+	  "remove #{full_name} from the administrators group?"
 
 	message = "Are you sure " + message
 
@@ -105,11 +105,11 @@ toggleAdminOnUser = (obj) ->
 
 	request.success (data) ->
 		if action_taken == GRANT_ACTION
-		  action_text = "Remove from administrators"
+		  action_text = "Remove Admin"
 		  old_class =	[GRANT_ACTION, ALLOW_BTN_CSS].join ' '
 		  new_class =	[REVOKE_ACTION, DENY_BTN_CSS].join ' '
 		else
-		  action_text = "Make an administrator"
+		  action_text = "Make Admin"
 		  old_class =	[REVOKE_ACTION, DENY_BTN_CSS].join ' '
 		  new_class =	[GRANT_ACTION, ALLOW_BTN_CSS].join ' '
 

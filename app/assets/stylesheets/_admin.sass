@@ -1,15 +1,18 @@
 .admin
   @extend %content-block
-  max-width: 940px
+  max-width: 614px
   margin: 0 auto
   padding: 0 10px 10px
 
   .site-settings
-    width: 280px
-
     label
       +clearfix
       margin-bottom: 10px
+      &.switch-label
+        width: 100%
+      .rendered-switch
+        float: none
+        margin-left: 40px
 
       input
         margin-bottom: 0
@@ -20,33 +23,36 @@
     margin: 0 0 -10px -10px
 
     li
-      margin: 0 0 10px 10px
+      padding: 10px
 
       &.user
         display: inline-block
         width: 300px
+        .top
+          overflow: auto
+          img.avatar
+            border-radius: 4px
+            float: left
+            margin-right: 10px
+            width: 70px
+          .name
+            overflow: hidden
+            text-overflow: ellipsis
 
-        img.avatar
-          border-radius: 4px
-          float: left
-          margin-right: 10px
-          width: 70px
+          .email-and-status
+            margin-bottom: 7px
 
-        .name
-          overflow: hidden
-          text-overflow: ellipsis
-          white-space: nowrap
-
-        .email-and-status
-          white-space: nowrap
-          margin-bottom: 7px
-
-        .email
-          font-style: italic
+          .email
+            font-style: italic
 
 
-        .badge
-          margin-top: 0
+          .badge
+            margin-top: 0
+        .user-buttons
+          padding-top: 5px
+          button
+            margin-right: 2px
+            margin-bottom: 2px
 
   .waiting-for-approval-users .users .admin-action
     display: none
