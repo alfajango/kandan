@@ -7,7 +7,7 @@ class Kandan.Plugins.YouTubeEmbed
     template: _.template '''
       <div class="youtube-preview">
             <iframe width="560" height="315"
-                    src="http://www.youtube.com/embed/<%= videoId %>"
+                    src="<%=httpPrefix%>//www.youtube.com/embed/<%= videoId %>"
                     frameborder="0" allowfullscreen>
             </iframe>
         <div class="name"><%= subtitle %></div>
@@ -27,6 +27,7 @@ class Kandan.Plugins.YouTubeEmbed
         comment = $.trim(message.substr(message.indexOf(" ") + 1));
 
       videoId = message.match(@options.idRegex)[1]
+      httpString = window.location.protocol
 
       subtitle = null
       subtitle = "#{comment}" if comment? and comment.length > 0
@@ -34,6 +35,7 @@ class Kandan.Plugins.YouTubeEmbed
 
       message = @options.template({
         videoId: videoId,
-        subtitle: subtitle
+        subtitle: subtitle,
+        httpPrefix: httpString
       })
       return message
