@@ -171,6 +171,8 @@ class Kandan.Plugins.MusicPlayer
       'cottoneyejoe'     : @localFileUrl('cottoneyejoe.mp3')
       'rumble'           : @localFileUrl('rumble.mp3')
       'guarantee'        : @localFileUrl('guarantee.mp3')
+      'lana'             : @localFileUrl('archerdangerzone.mp3')
+      'ants'             : @localFileUrl('archerants.mp3')
     }
 
     sounds[name]
