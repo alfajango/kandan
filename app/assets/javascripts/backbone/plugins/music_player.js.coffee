@@ -173,6 +173,8 @@ class Kandan.Plugins.MusicPlayer
       'guarantee'        : @localFileUrl('guarantee.mp3')
       'lana'             : @localFileUrl('archerdangerzone.mp3')
       'ants'             : @localFileUrl('archerants.mp3')
+      'logginszone'      : @localFileUrl('archerlogginszone.mp3')
+      'phrasing'         : @localFileUrl('archerphrasing.mp3')
     }
 
     sounds[name]
