@@ -175,6 +175,7 @@ class Kandan.Plugins.MusicPlayer
       'ants'             : @localFileUrl('archerants.mp3')
       'logginszone'      : @localFileUrl('archerlogginszone.mp3')
       'phrasing'         : @localFileUrl('archerphrasing.mp3')
+      'stayinshape'      : @localFileUrl('stayinshape.mp3')
     }
 
     sounds[name]
