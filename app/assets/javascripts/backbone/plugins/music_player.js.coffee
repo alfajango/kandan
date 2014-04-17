@@ -12,11 +12,19 @@ class Kandan.Plugins.MusicPlayer
     attention: 'threetone-alert.wav'
   }
 
-  @playTemplate:   _.template('<strong><a class="audio-play">playing</a> <a target="_blank" href="<%- url %>"><%- url %></a></strong>')
-  @stopTemplate:   _.template('<strong><a class="audio-play">stopping</a> the music.')
-  @resumeTemplate: _.template('<strong><a class="audio-play">resuming</a> the music.')
+  @playTemplate:   _.template('<a class="playit" target="_blank" href="<%- soundUrl %>"><i>:sound: play <%- url %></i></a>')
+  @stopTemplate:   _.template('<i>:mute: stop the music.</i>')
+  @resumeTemplate: _.template('<i>:sound: resume the music.</i>')
   @songTemplate:   _.template('<li><%= song.split("/").pop() %></li>')
 
+  @attachClicks: =>
+    _this = this
+    $(document).delegate('.playit', 'click', (e) ->
+      e.preventDefault()
+      soundUrl = $(this).attr('href')
+      channelId = _this.currentChannel()
+      _this.playUrl(channelId, soundUrl)
+    )
 
   @setError: (errorMessage)->
     console.log "music player error", errorMessage
@@ -65,18 +73,18 @@ class Kandan.Plugins.MusicPlayer
   @registerPlayModifier: ()->
     Kandan.Modifiers.register @playRegex, (message, activity) =>
       url = $.trim(message.substr(message.indexOf(" ") + 1));
-      if true and Kandan.Data.Channels.activeChannelId()?
-        rawInput  = Kandan.Helpers.Utils.unescape(url)
-        soundUrl  = null
-        soundUrl  = @localSounds(rawInput)
-        soundUrl ?= rawInput
+      rawInput  = Kandan.Helpers.Utils.unescape(url)
+      soundUrl  = null
+      soundUrl  = @localSounds(rawInput)
+      soundUrl ?= rawInput
 
+      if true and Kandan.Data.Channels.activeChannelId()?
         @playUrl(activity.channel_id, soundUrl)
       else
         console.log "Not playing stale song"
 
-      message.content = @playTemplate({url: url})
-      return Kandan.Helpers.Activities.buildFromBaseTemplate message
+      message = @playTemplate({url: url, soundUrl: soundUrl})
+      return message #Kandan.Helpers.Activities.buildFromBaseTemplate message
 
   @registerStopModifier: ()->
     Kandan.Modifiers.register @stopRegex, (message, activity) =>
@@ -119,7 +127,56 @@ class Kandan.Plugins.MusicPlayer
     sounds = {
       'threetone-alert'  : @localFileUrl('threetone-alert.wav')
       'ding'             : @localFileUrl('ding.wav')
-      }
+      'secret'           : @localFileUrl('secret.mp3')
+      'secret'           : @localFileUrl('secret.mp3')
+      'trombone'         : @localFileUrl('trombone.mp3')
+      'crickets'         : @localFileUrl('crickets.mp3')
+      'rimshot'          : @localFileUrl('rimshot.mp3')
+      'vuvuzela'         : @localFileUrl('vuvuzela.mp3')
+      'tmyk'             : @localFileUrl('tmyk.mp3')
+      'live'             : @localFileUrl('live.mp3')
+      'drama'            : @localFileUrl('drama.mp3')
+      'yeah'             : @localFileUrl('yeah.mp3')
+      'greatjob'         : @localFileUrl('greatjob.mp3')
+      'pushit'           : @localFileUrl('pushit.mp3')
+      'nyan'             : @localFileUrl('nyan.mp3')
+      'tada'             : @localFileUrl('tada.mp3')
+      'ohmy'             : @localFileUrl('ohmy.mp3')
+      'bueller'          : @localFileUrl('bueller.mp3')
+      'ohyeah'           : @localFileUrl('ohyeah.mp3')
+      '56k'              : @localFileUrl('56k.mp3')
+      'dangerzone'       : @localFileUrl('dangerzone.mp3')
+      'horn'             : @localFileUrl('horn.mp3')
+      'horror'           : @localFileUrl('horror.mp3')
+      'loggins'          : @localFileUrl('loggins.mp3')
+      'yodel'            : @localFileUrl('yodel.mp3')
+      'sax'              : @localFileUrl('sax.mp3')
+      'noooo'            : @localFileUrl('noooo.mp3')
+      'heygirl'          : @localFileUrl('heygirl.mp3')
+      'inconceivable'    : @localFileUrl('inconceivable.mp3')
+      'deeper'           : @localFileUrl('deeper.mp3')
+      'whoomp'           : @localFileUrl('whoomp.mp3')
+      'clowntown'        : @localFileUrl('clowntown.mp3')
+      'what'             : @localFileUrl('what.mp3')
+      'bezos'            : @localFileUrl('bezos.mp3')
+      'trololo'          : @localFileUrl('trololo.mp3')
+      'makeitso'         : @localFileUrl('makeitso.mp3')
+      'sexyback'         : @localFileUrl('sexyback.mp3')
+      'bell'             : @localFileUrl('bell.mp3')
+      'danielsan'        : @localFileUrl('danielsan.mp3')
+      'greyjoy'          : @localFileUrl('greyjoy.mp3')
+      'story'            : @localFileUrl('story.mp3')
+      'dadgummit'        : @localFileUrl('dadgummit.mp3')
+      'rollout'          : @localFileUrl('rollout.mp3')
+      'cottoneyejoe'     : @localFileUrl('cottoneyejoe.mp3')
+      'rumble'           : @localFileUrl('rumble.mp3')
+      'guarantee'        : @localFileUrl('guarantee.mp3')
+      'lana'             : @localFileUrl('archerdangerzone.mp3')
+      'ants'             : @localFileUrl('archerants.mp3')
+      'logginszone'      : @localFileUrl('archerlogginszone.mp3')
+      'phrasing'         : @localFileUrl('archerphrasing.mp3')
+      'stayinshape'      : @localFileUrl('stayinshape.mp3')
+    }
 
     sounds[name]
 
