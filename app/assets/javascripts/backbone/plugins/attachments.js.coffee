@@ -7,7 +7,7 @@ class Kandan.Plugins.Attachments
   @dropzoneInit: false
 
   @options:
-    maxFileNameLength: 20
+    maxFileNameLength: 17
     defaultDropzoneText: "Drop file here to upload"
 
   @templates:

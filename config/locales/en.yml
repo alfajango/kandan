@@ -3,6 +3,7 @@
 
 en:
   hello: "Hello world"
+  title: "AJ-Chat"
   activerecord:
     errors:
       models:
