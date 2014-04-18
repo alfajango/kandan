@@ -176,6 +176,11 @@ class Kandan.Plugins.MusicPlayer
       'logginszone'      : @localFileUrl('archerlogginszone.mp3')
       'phrasing'         : @localFileUrl('archerphrasing.mp3')
       'stayinshape'      : @localFileUrl('stayinshape.mp3')
+      'thatswhatshesaid' : @localFileUrl('thatswhatshesaid.mp3')
+      'thatswhathesaid'  : @localFileUrl('thatswhathesaid.mp3')
+      'heorshesaid'      : @localFileUrl('heorshesaid.mp3')
+      'pamsaid'          : @localFileUrl('pamsaid.mp3')
+      'boomroasted'      : @localFileUrl('boomroasted.mp3')
     }
 
     sounds[name]
