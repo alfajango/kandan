@@ -181,6 +181,7 @@ class Kandan.Plugins.MusicPlayer
       'heorshesaid'      : @localFileUrl('heorshesaid.mp3')
       'pamsaid'          : @localFileUrl('pamsaid.mp3')
       'boomroasted'      : @localFileUrl('boomroasted.mp3')
+      'woowoo'           : @localFileUrl('woowoo.mp3')
     }
 
     sounds[name]
