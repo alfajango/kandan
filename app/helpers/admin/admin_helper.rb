@@ -23,9 +23,9 @@ module Admin::AdminHelper
 
   def user_admin_button user
     action_text, action_class, klass = if user.is_admin?
-      ["Remove from administrators", 'revoke', 'btn-danger']
+      ["Remove Admin", 'revoke', 'btn-danger']
     else
-      ["Make an administrator", 'grant', 'btn-success']
+      ["Make Admin", 'grant', 'btn-success']
     end
 
     klass = ['admin-action', 'btn', 'btn-mini', action_class, klass] * ' '

@@ -19,6 +19,10 @@ faye_server.bind(:unsubscribe) do |client_id|
   ActiveUsers.remove_by_client_id(client_id)
 end
 
+faye_server.bind(:disconnect) do |client_id|
+  ActiveUsers.remove_by_client_id(client_id)
+end
+
 run Rack::URLMap.new({
     "/remote"  => faye_server,
     "/"      => Kandan::Application
