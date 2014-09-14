@@ -1,8 +1,7 @@
 class Kandan.Plugins.YouTubeEmbed
 
   @options:
-    regex: /http(s)?.+www.youtube.com.+watch/i
-    idRegex: /\Wv=([\w|\-]*)/
+    regex: /^(?:https?:&#x2F;&#x2F;)?(?:www\.)?youtu(?:\.be|be\.com)&#x2F;(?:watch\?v=)?([\w-]{10,})/
 
     template: _.template '''
       <div class="youtube-preview">
@@ -26,16 +25,16 @@ class Kandan.Plugins.YouTubeEmbed
       # Spaces indicate a subtitle
         comment = $.trim(message.substr(message.indexOf(" ") + 1));
 
-      videoId = message.match(@options.idRegex)[1]
-      httpString = window.location.protocol
+      if message.match(@options.regex).length == 2
+        videoId = message.match(@options.regex)[1]
+        httpString = window.location.protocol
+        subtitle = null
+        subtitle = "#{comment}" if comment? and comment.length > 0
+        subtitle ||= videoUrl
 
-      subtitle = null
-      subtitle = "#{comment}" if comment? and comment.length > 0
-      subtitle ||= videoUrl
-
-      message = @options.template({
-        videoId: videoId,
-        subtitle: subtitle,
-        httpPrefix: httpString
-      })
-      return message
+        message = @options.template({
+          videoId: videoId,
+          subtitle: subtitle,
+          httpPrefix: httpString
+        })
+        return message

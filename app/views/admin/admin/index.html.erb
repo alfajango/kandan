@@ -10,16 +10,19 @@
   <div class="site-settings panel">
     <h3>Site settings</h3>
     <%= form_for @settings, :url => admin_update_path, :method => :post do |f| %>
-      <div class="form-group">
-        <%= f.label :max_rooms, "Max Number of Rooms", :class => "control-label" %>
-        <%= f.number_field :max_rooms, :class => "input-mini form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.label :public_site, :class => "control-label switch-label" do %>
-          <%= f.check_box :public_site, :class => "switch" %> Public site
-          <span class="rendered-switch"></span>
-        <% end %>
-      </div>
+      <%= f.label :max_rooms do %>
+        Max number of rooms <%= f.number_field :max_rooms, :class => "input-mini pull-right" %>
+      <% end %>
+
+      <%= f.label :disable_conn_disconn_activity do %>
+        <%= f.check_box :disable_conn_disconn_activity, :class => "switch" %> disable connect/disconnect activity
+        <span></span>
+      <% end %>
+
+      <%= f.label :public_site do %>
+        <%= f.check_box :public_site, :class => "switch" %> Public site
+        <span></span>
+      <% end %>
       <p>
         <%= f.submit :class => "btn btn-success" %>
       </p>

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Core gems
-gem 'rails', '3.2.16'
+gem 'rails', '3.2.17'
 
 # Database adapters
 gem 'pg'
@@ -37,6 +37,7 @@ group :assets do
   gem 'eco'
   gem 'uglifier'
   gem 'bootstrap-sass'
+  gem 'sass', '3.2.13'
   gem 'gemoji'
 end
 

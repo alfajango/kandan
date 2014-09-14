@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :activities
   before_save :ensure_gravatar_hash
   before_save :ensure_authentication_token
- 
+
   before_create :mark_registration_status_depending_on_app_settings
 
   after_create :ensure_at_least_one_admin
@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   devise devise *Kandan.devise_modules
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :id, :username, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :locale, :gravatar_hash, :registration_status, :avatar_url
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :locale, :gravatar_hash, :avatar_url
 
   def full_name
     "#{self.first_name.to_s} #{self.last_name.to_s}".titlecase
