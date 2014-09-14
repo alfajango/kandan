@@ -16,6 +16,7 @@ class Kandan.Plugins.MusicPlayer
   @stopTemplate:   _.template('<i>:mute: stop the music.</i>')
   @resumeTemplate: _.template('<i>:sound: resume the music.</i>')
   @songTemplate:   _.template('<li><%= song.split("/").pop() %></li>')
+  @atWhoTemplate: '''<li data-value="${insert}"><img class="emoticon-embed small" height="20" width="20" src="/assets/emoticons/emojis/sound.png" /> ${name}</li>'''
 
   @attachClicks: =>
     _this = this
@@ -62,6 +63,11 @@ class Kandan.Plugins.MusicPlayer
     @registerPlayModifier()
     @registerStopModifier()
     @registerResumeModifier()
+    @soundNames = $.map @soundFiles, (f, s) ->
+      {
+        name: s
+        insert: " #{s}"
+      }
     # Disabled for now
     #@registerWidget()
 
@@ -123,13 +129,68 @@ class Kandan.Plugins.MusicPlayer
   @localFileUrl: (fileName) ->
     "//#{ window.location.hostname }:#{ window.location.port }/sounds/#{ fileName }"
 
-  @localSounds: (name) ->
-    sounds = {
-      'threetone-alert'  : @localFileUrl('threetone-alert.wav')
-      'ding'             : @localFileUrl('ding.wav')
-      }
+  @soundFiles: {
+    'threetone-alert'  : @localFileUrl('threetone-alert.wav')
+    'ding'             : @localFileUrl('ding.wav')
+    'secret'           : @localFileUrl('secret.mp3')
+    'secret'           : @localFileUrl('secret.mp3')
+    'trombone'         : @localFileUrl('trombone.mp3')
+    'crickets'         : @localFileUrl('crickets.mp3')
+    'rimshot'          : @localFileUrl('rimshot.mp3')
+    'vuvuzela'         : @localFileUrl('vuvuzela.mp3')
+    'tmyk'             : @localFileUrl('tmyk.mp3')
+    'live'             : @localFileUrl('live.mp3')
+    'drama'            : @localFileUrl('drama.mp3')
+    'yeah'             : @localFileUrl('yeah.mp3')
+    'greatjob'         : @localFileUrl('greatjob.mp3')
+    'pushit'           : @localFileUrl('pushit.mp3')
+    'nyan'             : @localFileUrl('nyan.mp3')
+    'tada'             : @localFileUrl('tada.mp3')
+    'ohmy'             : @localFileUrl('ohmy.mp3')
+    'bueller'          : @localFileUrl('bueller.mp3')
+    'ohyeah'           : @localFileUrl('ohyeah.mp3')
+    '56k'              : @localFileUrl('56k.mp3')
+    'dangerzone'       : @localFileUrl('dangerzone.mp3')
+    'horn'             : @localFileUrl('horn.mp3')
+    'horror'           : @localFileUrl('horror.mp3')
+    'loggins'          : @localFileUrl('loggins.mp3')
+    'yodel'            : @localFileUrl('yodel.mp3')
+    'sax'              : @localFileUrl('sax.mp3')
+    'noooo'            : @localFileUrl('noooo.mp3')
+    'heygirl'          : @localFileUrl('heygirl.mp3')
+    'inconceivable'    : @localFileUrl('inconceivable.mp3')
+    'deeper'           : @localFileUrl('deeper.mp3')
+    'whoomp'           : @localFileUrl('whoomp.mp3')
+    'clowntown'        : @localFileUrl('clowntown.mp3')
+    'what'             : @localFileUrl('what.mp3')
+    'bezos'            : @localFileUrl('bezos.mp3')
+    'trololo'          : @localFileUrl('trololo.mp3')
+    'makeitso'         : @localFileUrl('makeitso.mp3')
+    'sexyback'         : @localFileUrl('sexyback.mp3')
+    'bell'             : @localFileUrl('bell.mp3')
+    'danielsan'        : @localFileUrl('danielsan.mp3')
+    'greyjoy'          : @localFileUrl('greyjoy.mp3')
+    'story'            : @localFileUrl('story.mp3')
+    'dadgummit'        : @localFileUrl('dadgummit.mp3')
+    'rollout'          : @localFileUrl('rollout.mp3')
+    'cottoneyejoe'     : @localFileUrl('cottoneyejoe.mp3')
+    'rumble'           : @localFileUrl('rumble.mp3')
+    'guarantee'        : @localFileUrl('guarantee.mp3')
+    'lana'             : @localFileUrl('archerdangerzone.mp3')
+    'ants'             : @localFileUrl('archerants.mp3')
+    'logginszone'      : @localFileUrl('archerlogginszone.mp3')
+    'phrasing'         : @localFileUrl('archerphrasing.mp3')
+    'stayinshape'      : @localFileUrl('stayinshape.mp3')
+    'thatswhatshesaid' : @localFileUrl('thatswhatshesaid.mp3')
+    'thatswhathesaid'  : @localFileUrl('thatswhathesaid.mp3')
+    'heorshesaid'      : @localFileUrl('heorshesaid.mp3')
+    'pamsaid'          : @localFileUrl('pamsaid.mp3')
+    'boomroasted'      : @localFileUrl('boomroasted.mp3')
+    'woowoo'           : @localFileUrl('woowoo.mp3')
+  }
 
-    sounds[name]
+  @localSounds: (name) ->
+    @soundFiles[name]
 
   @audioChannels: ->
     Kandan.Helpers.Audio.audioChannels()
@@ -186,5 +247,11 @@ class Kandan.Plugins.MusicPlayer
     player = $('.audio_private')[0]
     player.setAttribute('src', url)
     player.play()
+
+  @attachToChatbox: ->
+    $(".chat-input").atwho '\/play\\s?',
+      data: @soundNames
+      tpl: @atWhoTemplate
+      limit: 10
 
 # Kandan.Plugins.register "Kandan.Plugins.MusicPlayer"
