@@ -146,16 +146,30 @@
       color: #6F7477
 
   &.connect
+    border-bottom-color: lighten(#5F9906, 45)
     .content
       color: #5F9906
   &.disconnect
+    border-bottom-color: lighten(#AA0101, 60)
     .content
       color: #AA0101
 
   &.connect, &.disconnect
     opacity: 0.5
     min-height: 0
-    padding: 3px 0
+    height: 5px
+    overflow: hidden
+    padding: 0
+    -moz-transition: 0.15s
+    -ms-transition: 0.15s
+    -o-transition: 0.15s
+    -webkit-transition: 0.15s
+    transition: 0.15s
+    cursor: pointer
+
+    &:hover
+      padding: 3px 0
+      height: 2em
 
     .posted_at
       line-height: normal
