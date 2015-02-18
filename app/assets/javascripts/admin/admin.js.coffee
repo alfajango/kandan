@@ -89,11 +89,11 @@ toggleAdminOnUser = (obj) ->
 
   full_name = $user.data("full-name")
 
-  # Generate the message based on the check of the user admin flag
-  message = if action_taken == GRANT_ACTION
-    "make #{full_name} an administrator?"
-  else
-    "remove #{full_name} from the administrators group?"
+	# Generate the message based on the check of the user admin flag
+	message = if action_taken == GRANT_ACTION
+	  "make #{full_name} an administrator?"
+	else
+	  "remove #{full_name} from administrators?"
 
   message = "Are you sure " + message
 
@@ -103,15 +103,15 @@ toggleAdminOnUser = (obj) ->
   request = $.post '/admin/toggle_admin',
     user_id: user_id
 
-  request.success (data) ->
-    if action_taken == GRANT_ACTION
-      action_text = "Remove from administrators"
-      old_class = [GRANT_ACTION, ALLOW_BTN_CSS].join ' '
-      new_class = [REVOKE_ACTION, DENY_BTN_CSS].join ' '
-    else
-      action_text = "Make an administrator"
-      old_class = [REVOKE_ACTION, DENY_BTN_CSS].join ' '
-      new_class = [GRANT_ACTION, ALLOW_BTN_CSS].join ' '
+	request.success (data) ->
+		if action_taken == GRANT_ACTION
+		  action_text = "Remove Admin"
+		  old_class =	[GRANT_ACTION, ALLOW_BTN_CSS].join ' '
+		  new_class =	[REVOKE_ACTION, DENY_BTN_CSS].join ' '
+		else
+		  action_text = "Make Admin"
+		  old_class =	[REVOKE_ACTION, DENY_BTN_CSS].join ' '
+		  new_class =	[GRANT_ACTION, ALLOW_BTN_CSS].join ' '
 
     $el.text(action_text).removeClass(old_class).addClass(new_class)
 
