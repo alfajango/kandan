@@ -4,18 +4,19 @@ class Kandan.Views.ChannelPane extends Backbone.View
   render: (container) ->
     $container = $(container || @el)
     $container.html @paginatedActivitiesView()
+    $paginated_activities = $container.find(".paginated-activities")
 
     # Flag to avoid pulling new messages when we already requested new messages from the server
     @loading_new_messages = false
 
-    if !$container.hasScrollBar()
+    if !$paginated_activities.hasScrollBar()
       @loading_new_messages = true;
       @loadMoreActivities($container)
 
-    $container.bind 'scroll', =>
-      if $container.scrollTop() <= 100 && !@loading_new_messages
+    $paginated_activities.bind 'scroll', =>
+      if $paginated_activities.scrollTop() <= 100 && !@loading_new_messages
         @loading_new_messages = true
-        @loadMoreActivities($container)
+        @loadMoreActivities($paginated_activities)
       return
 
     $container.append @chatboxView()
@@ -60,18 +61,19 @@ class Kandan.Views.ChannelPane extends Backbone.View
     activities.fetch
       data: { oldest: oldest },
       success: (collection) =>
-        for activity in collection.models.reverse()
-          activityView = new Kandan.Views.ShowActivity(activity: activity, silence_mentions: true, silence_music: true)
-          $container.find(".channel-activities").prepend(activityView.render().el)
-
-        if $current_top_element.length != 0
-          $container.scrollTop($current_top_element.offset().top)
-
-        Kandan.Helpers.Channels.setPaginationState(
-          collection.channelId,
-          collection.moreActivities,
-          _.last(collection.models),
-          $container
-        )
-
-        @loading_new_messages = false
+        if collection.length > 0
+          for activity in collection.models.reverse()
+            activityView = new Kandan.Views.ShowActivity(activity: activity, silence_mentions: true, silence_music: true)
+            $container.find(".channel-activities").prepend(activityView.render().el)
+  
+          if $current_top_element.length != 0
+            $container.scrollTop($current_top_element.offset().top)
+  
+          Kandan.Helpers.Channels.setPaginationState(
+            collection.channelId,
+            collection.moreActivities,
+            _.last(collection.models),
+            $container
+          )
+  
+          @loading_new_messages = false

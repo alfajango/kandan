@@ -135,6 +135,15 @@ class Kandan.Plugins.Notifications
         icon: '/assets/kandanlogo.png'
         body: "#{sender} says: #{message}"
       )
+      notification.onshow = (event) ->
+        setTimeout (->
+          event.currentTarget.close()
+          return
+        ), 5000
+        return
+      notification.onclick = (event) ->
+          window.focus()
+          event.currentTarget.close()
 
     if @fluid_notifications_enabled
       window.fluid.showGrowlNotification {

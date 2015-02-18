@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Core gems
-gem 'rails', '3.2.17'
+gem 'rails', '~> 3.2.21'
 
 # Database adapters
 gem 'pg'
@@ -11,7 +11,7 @@ gem 'pg'
 
 # Auth gems
 gem 'devise'
-gem 'cancan'
+gem 'cancancan', '~> 1.9'
 
 # Server/transport gems
 gem 'thin'
@@ -36,9 +36,9 @@ group :assets do
   gem 'execjs'
   gem 'eco'
   gem 'uglifier'
-  gem 'bootstrap-sass'
+  gem 'bootstrap-sass', '3.1.1.0'
   gem 'sass', '3.2.13'
-  gem 'gemoji'
+  gem 'gemoji', '~> 1.5.0'
 end
 
 group :production do
@@ -52,12 +52,16 @@ group :development do
   gem 'awesome_print'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'debugger'
+  if RUBY_VERSION >= '2.0.0'
+    gem 'byebug'
+  else
+    gem 'debugger'
+  end
 end
 
 group :test do
   gem 'faker'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.1'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'simplecov', :require => false
@@ -71,6 +75,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'guard'
   gem 'guard-rspec'
+  gem 'guard-spork'
   gem 'database_cleaner'
   gem 'jasmine'
 end

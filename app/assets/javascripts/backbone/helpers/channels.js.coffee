@@ -20,13 +20,13 @@ class Kandan.Helpers.Channels
 
   @scrollToLatestMessage: (channelId) ->
     if channelId
-      theScrollArea = @channelPane(channelId)
+      theScrollArea = @channelPane(channelId).find(".paginated-activities")
       theScrollArea.scrollTop(theScrollArea.prop('scrollHeight'))
     else
-      $('.channels-pane').scrollTop($('.channels-pane').prop('scrollHeight'))
+      $('.paginated-activities').scrollTop($('.paginated-activities').prop('scrollHeight'))
 
   @currentScrollPosition: (channelId) ->
-    $('.channels-pane').scrollTop()
+    $('.paginated-activities').scrollTop()
 
   @channelPane: (channelId) ->
     $("#channels-#{channelId}")
@@ -103,13 +103,13 @@ class Kandan.Helpers.Channels
     local = local || false
     console.log !local, !belongsToCurrentUser, !activityExists
 
-    if local || (!local && !belongsToCurrentUser && !activityExists)
+    if !activityExists
       @channelActivitiesEl(activityAttributes.channel_id)
         .append(@newActivityView(activityAttributes).render().el)
 
     @flushActivities(activityAttributes.channel_id)
 
-    if not local and @getActiveChannelId() == activityAttributes.channel_id and activityAttributes.action == "message" and Kandan.Helpers.Utils.browserTabFocused != true
+    if !belongsToCurrentUser and (@getActiveChannelId() == activityAttributes.channel_id) and activityAttributes.action == "message" and Kandan.Helpers.Utils.browserTabFocused != true
       Kandan.Helpers.Utils.notifyInTitle()
       Kandan.Plugins.Notifications.playAudioNotification('channel')
       Kandan.Plugins.Notifications.displayNotification(activityAttributes.user.username || activityAttributes.user.email, activityAttributes.content)
@@ -128,17 +128,15 @@ class Kandan.Helpers.Channels
 
   @setPaginationState: (channelId, moreActivities, oldest) ->
     console.log "pagination element", moreActivities, @channelPaginationEl(channelId)
+    # Only set pagination data if there are more activities. Otherwise is useless
+    @channelPaginationEl(channelId).data("oldest", oldest.get("id"))
     if moreActivities == true
-      # Only set pagination data if there are more activities. Otherwise is useless
-      @channelPaginationEl(channelId).data("oldest", oldest.get("id"))
-
       @channelPaginationEl(channelId).show()
     else
       @channelPaginationEl(channelId).hide()
 
       # If there are no more messages we will unbind the scroll event
       @channelPane(channelId).unbind("scroll")
-
   @setPaginationData: (channelId) ->
     $oldestActivity = @channelActivitiesEl(channelId).find(".activity").first()
     if $oldestActivity.length != 0
